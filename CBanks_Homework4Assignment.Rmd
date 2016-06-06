@@ -1,0 +1,258 @@
+---
+title: "Bootstrap Example of CLT"
+author: "C. Banks"
+date: "June 5, 2016"
+output: html_document
+---
+*Bootstrapping:
+
+This is an example of using bootstrap to demonstrate the Central Limit
+Theorem. First demonstrates bootstrap run of two exponential 
+distributions of different sample sizes.  Second demonstrates 
+bootstrap run of two normal distributions of different sample sizes.  
+Take a sample, run a statistic on the sample multiple times by 
+sampling with replacement, get mean of sample, plot into histogram 
+and have a distribution of the sample mean from the original sample.
+
+```{r}
+#################################################################################
+# Exponential distributions of two different samples.  Coding that follows 
+# will set up bootstraps of exponential distributions from two different 
+# samples.  First is random sampling of 10, and second is random sampling of 15.
+# There will be 1000 repetitions per sampling for each bootstrap.
+#################################################################################
+# Initialize vector nsim with 1000
+###################################
+nsim <- 1000    
+###################################
+# Initialize vector with numeric values of nsim
+###################################
+rbootmeanexp <- numeric(nsim)     
+###################################
+# Vector r will contain 10 samples
+###################################
+r <- 10      
+###################################
+# The bootstrap will be loop that runs 1000
+# times for each of the 10 samples captured
+# from an exponential distribution and
+# with replacement
+# the mean from the sample distributions
+# are captured
+###################################
+for (i in 1:nsim) {    
+          rbootsampleexp <- sample(rexp(r), size=length(r), replace=TRUE)   
+         rbootmeanexp[i] <- mean(rbootsampleexp)  }     
+
+###################################
+# Take a look at the original sample 
+# mean of the sample exponential 
+# distributions
+###################################
+mean(rbootsampleexp)
+# mean(rbootmeanexp)
+###################################
+# We check to see that the means of
+# the sample exponential distributions
+# are captured with first 10 displayed
+###################################
+str(rbootmeanexp)
+###################################
+# Now we look at the histogram of the
+# exponential distributions of sample means
+###################################
+
+###################################
+# from our bootstrap run
+# the mean of the sample means
+# is displayed with a dashed blue line
+# and the mean of the original sample
+# is displayed with a red solid line
+# the means have variance in this
+# small sample size
+###################################
+par(mfrow=c(1,2)) 
+hist(rbootmeanexp)
+abline(v=mean(rbootsampleexp), col="red", lwd=2) 
+abline(v=mean(rbootmeanexp), col="blue", lwd=2, lty=2) 
+###################################
+# The next sequence of commands will 
+# establish a bootstrap involving another
+# exponential distribution this time with
+# a sample of 15 run 1000 times
+# with replacement
+###################################
+nsim <- 1000    
+sbootmeanexp <- numeric(nsim)     
+s <- 15      
+for (i in 1:nsim) {    
+          sbootsampleexp <- sample(rexp(s), size=length(s), replace=TRUE)   
+         sbootmeanexp[i] <- mean(sbootsampleexp)  }     
+###################################
+# Take a look at the original sample 
+# mean of the sample exponential 
+# distributions 
+###################################
+mean(sbootsampleexp)
+###################################
+# We check that there are 1000 sample
+# means and display the first 10
+###################################
+str(sbootmeanexp)
+
+###################################
+# We display the histogram of this run
+# side by side with prior bootstrap histogram
+# the mean of the sample means
+# is displayed with a dashed green line
+# and the mean of the original sample
+# is displayed with a yellow solid line
+# the means have variance even as the sample
+# size increases 
+###################################
+hist(sbootmeanexp)
+abline(v=mean(sbootsampleexp), col="yellow", lwd=2) 
+abline(v=mean(sbootmeanexp), col="green", lwd=2, lty=2) 
+###################################
+# Now, we superimpose the histograms
+# and display the mean of sample means
+# from bootstrap of exponential sample size 10
+# with a blue dash line
+# and from bootstrap of exponential sample
+# size 15 with a green solid line
+# here, the bootstrap means are close, and
+# this shows the CLT
+###################################
+
+par(mfrow = c(1,2))
+randsexp <- rbind(rbootmeanexp, sbootmeanexp)
+hist(randsexp)
+abline(v=mean(rbootmeanexp), col="blue", lwd=2, lty=2) 
+abline(v=mean(sbootmeanexp), col="green", lwd=2, lty=2) 
+###################################
+
+######################################################
+#end of Exponential distributions example
+######################################################
+
+#################################################################################
+# Normal distributions of two different samples.  Coding that follows 
+# will set up bootstraps of normal distributions from two different 
+# samples.  First is random sampling of 10, and second is random sampling of 15.
+# There will be 1000 repetitions per sampling for each bootstrap.
+#################################################################################
+# Initialize vector nsim with 1000
+###################################
+nsim <- 1000    
+###################################
+# Initialize vector with numeric values of nsim
+###################################
+rbootmeannorm <- numeric(nsim)     
+###################################
+# Vector r will contain 10 samples
+###################################
+r <- 10      
+###################################
+# The bootstrap will be loop that runs 1000
+# times for each of the 10 samples captured
+# from a normal  distribution and
+# with replacement
+# the mean from the sample distributions
+# are captured
+###################################
+for (i in 1:nsim) {    
+          rbootsamplenorm <- sample(rnorm(r), size=length(r), replace=TRUE)   
+         rbootmeannorm[i] <- mean(rbootsamplenorm)  }     
+
+###################################
+# Take a look at the original sample 
+# mean of the sample normal 
+# distributions
+###################################
+mean(rbootsamplenorm)
+# mean(rbootmeannorm)
+###################################
+# We check to see that the means of
+# the sample normal distributions
+# are captured with first 10 displayed
+###################################
+str(rbootmeannorm)
+###################################
+# Now we look at the histogram of the
+# normal distributions of sample means
+###################################
+
+###################################
+# from our bootstrap run
+# the mean of the sample means
+# is displayed with a dashed blue line
+# and the mean of the original sample
+# is displayed with a red solid line
+# the means have variance in this
+# small sample size
+###################################
+par(mfrow=c(1,2)) 
+hist(rbootmeannorm)
+abline(v=mean(rbootsamplenorm), col="red", lwd=2) 
+abline(v=mean(rbootmeannorm), col="blue", lwd=2, lty=2) 
+###################################
+# The next sequence of commands will 
+# establish a bootstrap involving another
+# normal distribution this time with
+# a sample of 15 run 1000 times
+# with replacement
+###################################
+nsim <- 1000    
+sbootmeannorm <- numeric(nsim)     
+s <- 15      
+for (i in 1:nsim) {    
+          sbootsamplenorm <- sample(rnorm(s), size=length(s), replace=TRUE)   
+         sbootmeannorm[i] <- mean(sbootsamplenorm)  }     
+###################################
+# Take a look at the original sample 
+# mean of the sample normal 
+# distributions 
+###################################
+mean(sbootsamplenorm)
+###################################
+# We check that there are 1000 sample
+# means and display the first 10
+###################################
+str(sbootmeannorm)
+
+###################################
+# We display the histogram of this run
+# side by side with prior bootstrap histogram
+# the mean of the sample means
+# is displayed with a dashed green line
+# and the mean of the original sample
+# is displayed with a yellow solid line
+# the means have more variance as the sample
+# size increases 
+###################################
+hist(sbootmeannorm)
+abline(v=mean(sbootsamplenorm), col="yellow", lwd=2) 
+abline(v=mean(sbootmeannorm), col="green", lwd=2, lty=2) 
+###################################
+# Now, we superimpose the histograms
+# and display the mean of sample means
+# from bootstrap of normal sample size 10
+# with a blue dash line
+# and from bootstrap of normal sample
+# size 15 with a green solid line
+# here, the bootstrap means are close, and
+# this shows the CLT
+###################################
+
+par(mfrow = c(1,2))
+randsnorm <- rbind(rbootmeannorm, sbootmeannorm)
+hist(randsnorm)
+abline(v=mean(rbootmeannorm), col="blue", lwd=2, lty=2) 
+abline(v=mean(sbootmeannorm), col="green", lwd=2) 
+###################################
+
+######################################################
+#end of Normal distributions example
+######################################################
+```
+
