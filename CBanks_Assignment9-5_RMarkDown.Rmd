@@ -100,7 +100,19 @@ lines(volest2,type="l",col="red")
 
 lines(volest3, type = "l", col="blue")
 ####################################
-## End of Assignment
+##  Analysis - Discussion
+##  The stock is Exxon, and the first plot of
+##  data shows the stock activity to date
+##  Interesting is the volatility index which has
+##  an instance of a wide peak and an instance of 
+##  a trough, which stock watchers would view as
+##  stability concern.  Overall, the stock has
+##  performed consistently, and the actual merger
+##  of Exxon and Mobil has kept the stock alive
+##  in the wake of recent reductions in price of oil
+##  per barrel.
+##
+##  End of Assignment
 ####################################
 
 
